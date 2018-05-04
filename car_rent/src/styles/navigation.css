@@ -1,5 +1,5 @@
 .navbar {
-    background-color: #3ca2e7;
+    background-color: #206396;
   }
   .navbar .navbar-brand {
     color: #ecf0f1;
@@ -125,9 +125,7 @@
     background-color: #ffffff;
   }
 
-  .logo{
-      
-      height: 42;
-      width: 42;
-      
+  .logo {
+    height:42;
+    width:42; 
   }

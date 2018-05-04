@@ -23,15 +23,7 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 
-  const logo = {
-    width:42,
-    height:42
-  }
-
-  const text_logo = {
-    'font-size' : '25px'
-
-  }
+ 
 
 class App extends Component {
   
@@ -43,7 +35,7 @@ class App extends Component {
     this.state = {
       isOpen: false
     };
-
+    
   }
   
   toggle(){
@@ -52,27 +44,23 @@ class App extends Component {
     })
   }
   
+  
   render() {
     return (
       <div>
-      <Navbar  light expand="md">
-      <NavbarBrand>
-        <Link to="/" >
-        
-        <ul styles={{ 'list-style-type': 'none' }}>
-          <li style={{float:'left'}}><img style={logo} alt="logo" src="https://cdn4.iconfinder.com/data/icons/dot/256/parking_locked.png"/></li>
-          <li><div style={text_logo}>Car Rent</div></li>
-        </ul>
-          
-        </Link>
-      </NavbarBrand>
+      <Navbar  light expand="md" className="Navbar sticky-top"  >
+        <NavbarBrand>
+          <Link to="/" >
+            <img style={{width:'15%' , height:'100' ,paddingRight:'5%'}} alt="logo" src="http://www.mauriclick.com/images/media/car-rent.png"/>
+            Car Rent
+          </Link>
+        </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
               <Link to="/"><NavLink>Manage Booking</NavLink></Link>
               </NavItem>
-              
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   Member
@@ -98,7 +86,12 @@ class App extends Component {
         
           </Switch>
         </div>
-      
+      <div className="App container">
+        <br/>
+        <hr />
+          Developer : <a href="facebook.com/waveblur">WaveBlur</a>
+        <hr/>
+      </div>
         
       </div>
     )

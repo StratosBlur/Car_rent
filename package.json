@@ -1,0 +1,29 @@
+{
+  "name": "car_rent",
+  "version": "1.0.0",
+  "description": "เป็นโครงงานในรายวิชา Software Engineer และ Internet Programing",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wavebluronlyone/Car_rent.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wavebluronlyone/Car_rent/issues"
+  },
+  "homepage": "https://github.com/wavebluronlyone/Car_rent#readme",
+  "devDependencies": {
+    "npm-run-all": "^4.1.2"
+  },
+  "scripts": {
+    "start": "npm-run-all --parallel start-dev-db  start-dev-ui",
+    "start-dev-ui": "node start_ui.js",
+    "start-dev-db": "node start_db.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongojs": "^2.5.0",
+    "path": "^0.12.7"
+  }
+}

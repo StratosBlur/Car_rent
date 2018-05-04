@@ -1,19 +1,42 @@
 import React, { Component } from 'react'
 
 
+const intputParsers = {
+    Car_name(input){
+        return input
+    },
+    Car_doors(input){
+        return parseInt(input,10)
+    }
+}
+
 class Home extends Component {
     constructor(props){
         super(props)
-        this.state = {value : "saab"}
-        this.handleChange = this.handleChange.bind(this)
+        
         this.handleSubmit = this.handleSubmit.bind(this)
     }
-    handleChange(event){
-        this.setState({value: event.target.value});
-    }
+    
     handleSubmit(event){
-        
-        event.preventDefault();
+        event.preventDefault()
+        const form = event.target
+        const data = new FormData(form)
+        for (let name of data.keys()){
+            const input = form.elements[name]
+            const ParserName = input.dataset.parse
+            if(ParserName){
+                const parser = intputParsers[ParserName]
+                const parsedValue = parser(data.get.name)
+                data.set(name,parsedValue)
+            }
+            
+            
+        }
+        fetch('/api/form-submit-url',{
+            method: 'POST',
+            body : data,
+        })
+
     }
     
     
@@ -25,10 +48,10 @@ class Home extends Component {
                     <div className="col">
                         <div>
                             <h1>ค้นหารถเช่าที่คุณต้องการ</h1>
-                            <form method="post" onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.handleSubmit}>
                                 <div className="carousel">
                                 <label style={{'padding-right':'2%'}}>ยี่ห้อรถ</label>
-                                <select value={this.state.value} onChange={this.handleChange}>
+                                <select name="Car_name" data-parse="Car_name">
                                     <option value="volvo">Volvo</option>
                                     <option value="saab">Saab</option>
                                     <option value="fiat">Fiat</option>
@@ -36,7 +59,7 @@ class Home extends Component {
                                 </select>
                                 <br/>
                                 <label style={{'padding-right':'7%'}}>ที่นั่ง</label>
-                                <select>
+                                <select name="Car_doors" data-parse="Car_doors">
                                     <option value="2">2</option>
                                     <option value="4">4</option>
                                     <option value="6">6</option>

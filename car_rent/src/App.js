@@ -6,6 +6,7 @@ import {
  } from 'react-router-dom'
 
 import Home from './components/Home'
+import Cars from './components/Cars'
 import NotFoundPage from './components/NotFound'
 
 
@@ -87,14 +88,16 @@ class App extends Component {
           <br />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/cars" component={Cars}/>
             <Route component={NotFoundPage}/>
+            
         
           </Switch>
         </div>
       <div className="App container">
         <br/>
         <hr />
-          Developer : <a href="facebook.com/waveblur">WaveBlur</a>
+          Developer : <a href="https://facebook.com/waveblur">WaveBlur</a>
         <hr/>
       </div>
         

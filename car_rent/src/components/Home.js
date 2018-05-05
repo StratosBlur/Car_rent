@@ -32,7 +32,7 @@ class Home extends Component {
             
             
         }
-        fetch('/api/form-submit-url',{
+        fetch('http://localhost:1222/api/cars/',{
             method: 'POST',
             body : data,
         })
@@ -71,7 +71,8 @@ class Home extends Component {
                             </form>
                         </div>
                     </div>
-                    <div className="col"></div>
+                    <div className="col">
+                    </div>
                 </div>
             </div>
         )

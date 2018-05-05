@@ -5,16 +5,23 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 
 router.use(bodyParser.json());
-router.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 router.use(bodyParser.urlencoded({
     extended : true 
 }));
 
+router.use(function(req,res,next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})
+
 
 router.get('/',function(req,res){
+    
     CarsModel.find(null,null,null,function(err,docs){
         if(err){
-            res.send(err);
+            console.log(err);
+            res.status(500).send()
         }
          res.json(docs);
     })

@@ -16,7 +16,7 @@
     "npm-run-all": "^4.1.2"
   },
   "scripts": {
-    "start": "npm-run-all --parallel start-dev-db",
+    "start": "npm-run-all --parallel start-dev-db start-dev-ui",
     "start-dev-ui": "node start_ui.js",
     "start-dev-db": "node start_db.js"
   },

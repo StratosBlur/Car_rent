@@ -5,10 +5,12 @@ import {
   Link
  } from 'react-router-dom'
 
-import Home from './components/Home'
-import Cars from './components/Cars'
+
+
 import NotFoundPage from './components/NotFound'
 
+import Cars from './components/Cars/'
+import Home from './components/Home'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/navigation.css'

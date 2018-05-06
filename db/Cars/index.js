@@ -52,11 +52,12 @@ router.post('/add',function(req,res){
             Car_id : req.body.Car_id,
             Car_name : req.body.Car_name,
             Car_spec : req.body.Car_spec,
-            Cost : req.body.Cost
+            Cost : req.body.Cost,
+            Img : req.body.Img
         });
         data.save(err => {
-            if(err) return res.status(500).send(err);
-            return res.json(201,data)
+            if(err)  res.status(500).send(err)
+             res.status(201).json(data)
         })
         
     }

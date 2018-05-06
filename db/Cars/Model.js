@@ -10,7 +10,12 @@ var CarSchema = mongoose.Schema({
         Doors: Number,
         Gear: String
     },
-    Cost:Number
+    Cost:Number,
+    Img: {
+        pic_one : String,
+        pic_two : String,
+        pic_three : String
+    }
 }, {_id : true, timestamps : false});
 
 module.exports = mongoose.model('CarsModel',CarSchema,'Cars');

@@ -4,8 +4,7 @@ import Cars from './Cars'
 
 
 class Home extends Component {
-    
-    
+        
     render(){
         return (
             <div>

@@ -34,32 +34,6 @@ class Cars extends Component {
             [name] : value
         })
     }
-   /* find(event){
-        
-        const { Car_name , Seats , Doors  } = this.state
-        
-        alert(JSON.stringify({Car_name : Car_name , Seats : Seats , Doors: Doors}))
-        fetch("http://127.0.0.1:1222/api/Cars/find",{ 
-            header : {"content-type" : "application/json"},
-            body : JSON.stringify({Car_name : Car_name , Seats : Seats , Doors: Doors}),
-            method : "POST"
-         })
-        .then(Response => Response.json())
-        .then((data) => {
-                this.setState().Cars = data
-                this.setState().isLoading = true
-            },
-            (error) => {
-                this.setState({
-                    isLoading: true,
-                    error
-                })
-            
-            }
-        )
-        event.preventDefault();
-
-    }*/
 
     find(event){
         const { Cost , Seats} = this.state
@@ -99,7 +73,7 @@ class Cars extends Component {
     
     componentDidMount() {
         
-        //this.OnReload()
+        this.OnReload()
        //this.find()
     }
 

@@ -11,7 +11,7 @@ class Cars extends Component {
         super(props)
         this.state = {
             Cars : [],
-            isLoading:true,
+            isLoading:false,
             error:null,
             activeIndex: 0,
             pics: [],

@@ -43,12 +43,8 @@ router.get('/find/:Seats/:Cost',function(req,res){
 
 router.post('/add',function(req,res){
     var car = req.body
-   
     if( car.Car_id == '' || car.Car_name == '' ){
-        res.status(400);
-        res.json({
-            'error' : 'inccorect data'
-        })
+        res.status(400).send("error")
     }else{
         var data = new CarsModel({
             Car_id : req.body.Car_id,
@@ -60,7 +56,9 @@ router.post('/add',function(req,res){
             Img : req.body.Img
         });
         data.save(err => {
-            if(err)  res.status(500).send(err)
+            if(err){
+                console.error(err)
+            }
              res.status(201).json(data)
         })
         

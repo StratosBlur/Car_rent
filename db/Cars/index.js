@@ -27,6 +27,18 @@ router.get('/',function(req,res){
     })
 });
 
+router.get('/findbyId/:id',function(req,res){
+    CarsModel.find({Car_id : req.params.id},null,null,function(err,docs){
+        if(err){
+            console.log(err)
+            res.status(500).send()
+        }
+        res.json(docs)
+    })
+})
+
+
+
 router.get('/find/:Seats/:Cost',function(req,res){
     var Seats = req.params.Seats
     var Cost = req.params.Cost

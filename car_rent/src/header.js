@@ -30,6 +30,7 @@ export default class Header extends Component {
     logoutSubmit(event){
       event.preventDefault()
       cookie.remove('email')
+      cookie.remove('car_id')
     }
     toggle(){
         this.setState({
@@ -59,7 +60,7 @@ export default class Header extends Component {
                         </NavLink>
                         </NavItem>
                         <NavItem>
-                        <Link to="/"><NavLink>Manage Booking</NavLink></Link>
+                        <Link to="/book"><NavLink>Manage Booking</NavLink></Link>
                         </NavItem>
                         <NavItem onClick={this.logoutSubmit}>
                         <Link to="/user"><NavLink>Logout</NavLink></Link>
@@ -84,9 +85,7 @@ export default class Header extends Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                       <Nav className="ml-auto" navbar>
-                        <NavItem>
-                        <Link to="/"><NavLink>Manage Booking</NavLink></Link>
-                        </NavItem>
+                        
                         <UncontrolledDropdown nav inNavbar>
                           <DropdownToggle nav caret>
                             Member

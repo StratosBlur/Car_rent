@@ -2,7 +2,9 @@ import React,{Component} from 'react'
 import fetch from 'isomorphic-fetch'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Button, FormGroup, Label, Input} from 'reactstrap'
-
+import Cookies from 'universal-cookie'
+import {Link } from 'react-router-dom'
+var Cookie = new Cookies();
 
 class Cars extends Component {
     
@@ -17,13 +19,18 @@ class Cars extends Component {
             pics: [],
             Car_name : "",
             Seats : 2,
-            Cost : 2000
-
+            Cost : 2000,
+            btnR : false,
+            input: ""
+            
         }
         this.OnReload  = this.OnReload.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.find = this.find.bind(this)
+        
     }
+
+   
 
     handleChange(event){
         event.preventDefault()
@@ -70,11 +77,13 @@ class Cars extends Component {
             }
         )
     }
-    
+
     componentDidMount() {
-        
+        if(Cookie.get('email')){
+            this.setState({btnR : !this.state.btnR})
+        }
         this.OnReload()
-       //this.find()
+       
     }
 
     
@@ -110,7 +119,7 @@ class Cars extends Component {
                             <Label for="search3">ราคา</Label>
                             <Input type="string" name="Cost" value={Cost} onChange={this.handleChange} />
                         </FormGroup>
-                    <Button onClick={this.find} >ค้นหา</Button>
+                    <Button color="success" onClick={this.find} >ค้นหา</Button>
             </div>
                     </div> 
                    
@@ -124,6 +133,7 @@ class Cars extends Component {
                                 <th>รุ่น</th>
                                 <th>Spec</th>
                                 <th>รูปภาพ</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -134,6 +144,9 @@ class Cars extends Component {
                                 <td> จำนวนที่นั่ง {car.Seats} จำนวนประตู {car.Doors} ประเภทเกียร์ {car.Gear}</td>
                                  <td>
                                     <img src={car.Img.pic_one} alt="..."/>
+                                </td>
+                                <td>
+                                   {  (this.state.btnR && <Link to={"/car/"+ car.Car_id}><Button color="info">ราละเอียด</Button></Link>)}
                                 </td>
                                 </tr>
                            ))}

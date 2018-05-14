@@ -1,9 +1,9 @@
 import React,{Component} from 'react'
 import fetch from 'isomorphic-fetch'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button } from 'reactstrap'
-import { Link } from 'react-router-dom'
- 
+import { Button,Input, FormGroup } from 'reactstrap'
+import { Link  } from 'react-router-dom'
+
 
 class Car extends Component {
     
@@ -12,12 +12,32 @@ class Car extends Component {
         super(props)
         this.state = {
             Cars : [],
+            day : 0,
+            cost : 0
             
         }
         this.OnReload  = this.OnReload.bind(this)
-       
-        
-        
+        this.handleChange =  this.handleChange.bind(this)
+ 
+    }
+
+    handleChange(event){
+        event.preventDefault()
+        const target = event.target
+        const value = target.value
+        const name = target.name
+
+        if(name === "day"){
+            if(value > 15 || value < 1){
+                alert("จำนวนวันไม่ถูกต้อง")
+            }
+        }
+
+        this.setState({
+            [name] : value
+        })
+
+
     }
 
     OnReload(){
@@ -51,6 +71,7 @@ class Car extends Component {
         
 
             return (
+                <div>
                 <div className="row">
                 <Link to="/"><Button color="warning">กลับ</Button></Link>
                 <div  className="col">
@@ -61,6 +82,16 @@ class Car extends Component {
                         จำนวนที่นั่ง : {car.Seats}<br />
                         ประเภท Gear : {car.Gear}<br />
                         ราคา : {car.Cost} ฿/Day<br />
+                        <FormGroup className="form-inline">
+                            <label>จำนวนวันที่เช่า   </label>
+                            <Input type="number" name="day" value={this.state.day} onChange={this.handleChange}/>
+                            <label> ราคาโดยประมาณ {this.state.day * car.Cost } ฿</label>
+                        </FormGroup>
+                        
+                        <br />
+                        <br />
+                        <br />
+                        <Link to="/" className="btn btn-success" style={{marginBottom : "-10%" , height : "60px" , width : "50%" , textAlign : "center" , fontSize : "35px"}}>จองเลย!</Link>
                         </div>
                     ))}
                 </div>
@@ -74,6 +105,9 @@ class Car extends Component {
                     </div>
                 ))}  
                 </div>
+                
+                </div>
+                
                 </div>
             )
         }

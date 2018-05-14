@@ -9,6 +9,7 @@ var CarSchema = mongoose.Schema({
     Doors: {type :String},
     Gear: {type :String},
     Cost:{type :String},
+    status : {type : String},
     Img: {
         pic_one : {type :String},
         pic_two : {type :String},

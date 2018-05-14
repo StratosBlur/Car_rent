@@ -1,8 +1,9 @@
 var express = require('express');
+
 var router = express.Router();
 var CarsModel = require('./Model');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose')
+
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
@@ -15,10 +16,10 @@ router.use(function(req,res,next){
     next();
 })
 
-
+//หารถที่ยังไม่เช่า
 router.get('/',function(req,res){
     
-    CarsModel.find(null,null,null,function(err,docs){
+    CarsModel.find({"status" : ""},null,null,function(err,docs){
         if(err){
             console.log(err);
             res.status(500).send()

@@ -19,7 +19,7 @@ router.use(function(req,res,next){
 //หารถที่ยังไม่เช่า
 router.get('/',function(req,res){
     
-    CarsModel.find({"status" : ""},null,null,function(err,docs){
+    CarsModel.find({"status" : "-"},null,null,function(err,docs){
         if(err){
             console.log(err);
             res.status(500).send()

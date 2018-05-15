@@ -72,7 +72,16 @@ router.get('/register/:email/:password/:name/:tel',function(req,res){
                 email : email,
                 password : password,
                 name : name,
-                tel : tel
+                tel : tel,
+                Car : {
+                    Car_id : "",
+                    Book_createDate :"",
+                    Book_remainingDay : "",
+                    Book_Cost : "",
+                    Rent_Start_Date : "",
+                    Rent_Return_Date : "",
+                    s_id : ""
+                }
              })
              newData.save(err => {
                  if(err) {

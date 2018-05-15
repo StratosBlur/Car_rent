@@ -3,7 +3,10 @@ import fetch from 'isomorphic-fetch'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button,Input, FormGroup } from 'reactstrap'
 import { Link  } from 'react-router-dom'
-
+import Cookies from 'universal-cookie'
+import axios from 'axios'
+import qs from 'qs'
+var Cookie = new Cookies();
 
 class Car extends Component {
     
@@ -13,12 +16,14 @@ class Car extends Component {
         this.state = {
             Cars : [],
             day : 0,
-            cost : 0
+            cost : 0,
+            Car_id : ""
+           
             
         }
         this.OnReload  = this.OnReload.bind(this)
         this.handleChange =  this.handleChange.bind(this)
- 
+        this.booking = this.booking.bind(this)
     }
 
     handleChange(event){
@@ -40,6 +45,21 @@ class Car extends Component {
 
     }
 
+    booking(){
+        const Car_id = this.props.match.params.Car_id
+        const email = Cookie.get('email')
+        const cost = this.state.cost
+   
+        axios.post('http://127.0.0.1:1222/api/book/booking',qs.stringify({
+            "email" : String(email),
+            "Car_id" : String(Car_id),
+            "Cost" : String(cost*(50/100))
+        }));
+        
+
+
+    }
+
     OnReload(){
         fetch('http://127.0.0.1:1222/api/Cars/findbyId/'+this.props.match.params.Car_id)
         .then(Response => Response.json())
@@ -51,25 +71,26 @@ class Car extends Component {
             },
             (error) => {
                 this.setState({
-                   
                     error
                 })
             
             }
         )
     }
-
+    
+    componentWillMount() {
+        this.OnReload()
+    }
+    
     componentDidMount() {
-        
         this.OnReload()
        //this.find()
     }
 
     
     render(){
-        const { Cars } = this.state
+        const { Cars   } = this.state
         
-
             return (
                 <div>
                 <div className="row">
@@ -91,7 +112,7 @@ class Car extends Component {
                         <br />
                         <br />
                         <br />
-                        <Link to="/" className="btn btn-success" style={{marginBottom : "-10%" , height : "60px" , width : "50%" , textAlign : "center" , fontSize : "35px"}}>จองเลย!</Link>
+                        <Link to="/" className="btn btn-success" onClick={this.booking} style={{marginBottom : "-10%" , height : "60px" , width : "50%" , textAlign : "center" , fontSize : "35px"}}>จองเลย!</Link>
                         </div>
                     ))}
                 </div>

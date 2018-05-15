@@ -23,7 +23,7 @@ function getTodayDate() {
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
-    extended : true
+    extended : false
 }));
 
 router.use(function(req,res,next){
@@ -34,10 +34,10 @@ router.use(function(req,res,next){
 
 //ปรับสถานะรถ และเพิ่มรายการจอง
 router.post('/booking', function(req,res) {
-    //ปรับสถานะรถ
     const email = req.body.email
     const Car_id = req.body.Car_id
     const Cost = req.body.Cost
+    console.log(email)
     CarsModel.findOneAndUpdate({Car_id : Car_id }, {status : "Booking" }, {upsert:true}, function(err, doc){
         if (err){ 
             return res.send(500, { error: err })
@@ -100,14 +100,22 @@ router.post('/return', (req, res) => {
             return res.send('500',{error : err});
         }
         const Car_id = doc.Car.Car_id
-        doc.Car = {}
+        doc.Car = {
+            Car_id : "",
+            Book_createDate :"",
+            Book_remainingDay : "",
+            Book_Cost : "",
+            Rent_Start_Date : "",
+            Rent_Return_Date : "",
+            s_id : ""
+        }
         doc.save()
         console.log("remove car from " + email)
         CarsModel.findOne({Car_id : Car_id},(err,doc) => {
             if(err){
                 return res.send('500',{error:err})
             }
-            doc.status = ""
+            doc.status = "-"
             doc.save()
             console.log("return car "+ Car_id +" from " + email)
         })
@@ -116,6 +124,22 @@ router.post('/return', (req, res) => {
     })
 
 });
+
+//โชว์ข้อมูลหน้า manage book
+router.get('/getbook/:email', (req, res) => {
+    const email = req.params.email
+    CustomerModel.find({email : email},(err,doc) =>{
+        if(err){
+            return res.send('500',{error : err})
+        }
+        res.json(doc)
+    })
+
+
+});
+
+
+
 
 
 

@@ -15,7 +15,7 @@ class Car extends Component {
         super(props)
         this.state = {
             Cars : [],
-            day : 0,
+            day : 1,
             cost : 0,
             Car_id : ""
            
@@ -45,10 +45,10 @@ class Car extends Component {
 
     }
 
-    booking(){
+    booking(costed){
         const Car_id = this.props.match.params.Car_id
         const email = Cookie.get('email')
-        const cost = this.state.cost
+        const cost = costed
    
         axios.post('http://127.0.0.1:1222/api/book/booking',qs.stringify({
             "email" : String(email),
@@ -105,14 +105,15 @@ class Car extends Component {
                         ราคา : {car.Cost} ฿/Day<br />
                         <FormGroup className="form-inline">
                             <label>จำนวนวันที่เช่า   </label>
-                            <Input type="number" name="day" value={this.state.day} onChange={this.handleChange}/>
-                            <label> ราคาโดยประมาณ {this.state.day * car.Cost } ฿</label>
+                            <Input type="number" name="day" value={this.state.day} onChange={this.handleChange} min="1" max="15"/>
+                            <label> ราคาโดยประมาณ {  this.state.day * car.Cost } ฿</label>
+                            
                         </FormGroup>
                         
                         <br />
                         <br />
                         <br />
-                        <Link to="/" className="btn btn-success" onClick={this.booking} style={{marginBottom : "-10%" , height : "60px" , width : "50%" , textAlign : "center" , fontSize : "35px"}}>จองเลย!</Link>
+                        <Link to="/" className="btn btn-success" onClick={this.booking(this.state.day * car.Cost)} style={{marginBottom : "-10%" , height : "60px" , width : "50%" , textAlign : "center" , fontSize : "35px"}}>จองเลย!</Link>
                         </div>
                     ))}
                 </div>

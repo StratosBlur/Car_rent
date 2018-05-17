@@ -13,6 +13,8 @@ import Users from './components/Users'
 import Register from './components/Users/register'
 import Book from './components/Cars/book'
 import detail from './components/Cars/car'
+import Employee from './components/employees/'
+import deletebook from './components/employees/deletebook'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/navigation.css'
 
@@ -33,7 +35,9 @@ class App extends Component {
             <Route path="/user" component={Users}/>
             <Route path="/reg" component={Register}/>
             <Route path="/book" component={Book} />
+            <Route path="/emp" component={Employee}/>
             <Route path="/car/:Car_id" component={detail} />
+            <Route path="/delete/:email" component={deletebook} />
             <Route component={NotFoundPage}/>
           </Switch>
         </div>

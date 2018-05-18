@@ -3,6 +3,17 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var EmployeesModel = require('./Model')
 
+var mongojs = require('mongojs')
+var db = mongojs('Car_rent',['Employees'])
+
+function emp(email,password , idcard){
+    this.email = email
+    this.password = password
+    this.idcard = email
+    this.sid = "S"+Math.floor((Math.random() * 100) + 1)
+    this.level = '1'
+}
+
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
     extended : true
@@ -80,25 +91,12 @@ router.get('/register/:email/:password/:idcard',function(req,res){
     var password = req.params.password;
     var idcard = req.params.idcard
 
-    EmployeesModel.find({email: email},null ,null ,function(err,docs){
+    var newdata = new emp(email,password,idcard)
+    db.Employees.save(newdata,(err,doc) =>{
         if(err){
-            console.log(err)
-            res.status(500).send()
+            return res.send(err)
         }
-        if(docs.length != 0){
-            res.json("no");
-        }else{ 
-            EmployeesModel.create({
-                email : email,
-                password : password,
-                idcard : idcard,
-                sid : "S"+Math.floor((Math.random() * 100) + 1)               
-            }, (err,doc)=>{
-                if(err) return res.send(err)
-                res.json(doc)
-            })
-             
-        }
+        return res.send("add complete");
     })
     
 })

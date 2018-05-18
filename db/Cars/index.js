@@ -3,7 +3,23 @@ var express = require('express');
 var router = express.Router();
 var CarsModel = require('./Model');
 var bodyParser = require('body-parser');
+var mongojs = require('mongojs')
+var db = mongojs('Car_rent',['Cars'])
 
+function car(Car_name,Seats,Doors,Gear,Cost,pic_one,pic_two,pic_three){
+           this.Car_id     = "C"+Math.floor((Math.random() * 100) + 1) 
+           this.Car_name   = Car_name 
+           this.Seats      = Seats 
+           this.Doors      = Doors
+           this.Gear       = Gear
+           this.Cost       = Cost 
+           this.Img = { 
+                    pic_one : pic_one,
+                    pic_two : pic_two,
+                    pic_three : pic_three
+            }
+            this.status = "-"
+}
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({
@@ -55,28 +71,22 @@ router.get('/find/:Seats/:Cost',function(req,res){
 });
 
 router.post('/add',function(req,res){
-    var car = req.body
-    if( car.Car_id == '' || car.Car_name == '' ){
-        res.status(400).send("error")
-    }else{
-        var data = new CarsModel({
-            Car_id : req.body.Car_id,
-            Car_name : req.body.Car_name,
-            Seats : req.body.Seats,
-            Doors : req.body.Doors,
-            Gear : req.Gear,
-            Cost : req.body.Cost,
-            Img : req.body.Img
-        });
-        data.save(err => {
-            if(err){
-                console.error(err)
-            }
-             res.status(201).json(data)
-        })
-        
-    }
+    var Car_name   = req.body.Car_name
+    var Seats      = req.body.Seats
+    var Doors      = req.body.Doors
+    var Gear       = req.body.Gear
+    var Cost       = req.body.Cost
+    var pic_one    = req.body.pic_one
+    var pic_two    = req.body.pic_two
+    var pic_three  = req.body.pic_three
 
+    var newcar = new car(Car_name,Seats,Doors,Gear,Cost,pic_one,pic_two,pic_three)
+    db.Cars.save(newcar,(err,doc) => {
+        if(err){
+            return res.send(err);
+        }
+        res.send("add car complete");
+    })
 });
 
 

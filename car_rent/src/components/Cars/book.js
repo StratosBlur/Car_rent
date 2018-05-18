@@ -7,6 +7,7 @@ import axios from 'axios'
 import qs from 'qs'
 import {Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import Rent from './rent'
 
 var Cookie = new Cookies()
 
@@ -68,8 +69,8 @@ class Book extends Component {
       })
       .catch(err => console.error(err))
       
-
     }
+
     
     
     render(){
@@ -78,8 +79,11 @@ class Book extends Component {
             <div>
                 <div className="row">
                     <div className="col">
+                    <Link to="/"><Button color="warning" style={{marginTop : "3%" , marginBottom : "3%"}}>กลับ</Button></Link><br/>
                         <div className="jumbotron">
+
                             <h1 style={{marginTop : "-10%"}}>รถของคุณ</h1>
+                            
                             {booklist.map(list => (
                                 <div key={list.email} >
                                     <div className="form-inline">
@@ -93,11 +97,15 @@ class Book extends Component {
                                     <div className="form-inline">
                                         <Label style={{margin : "2%"}}>เหลืออีก</Label>
                                         <Input type="text" value={list.Car.Book_remainingDay} disabled style={{width : "7%"}}/>
-                                        <Label>ครบกำหนดชำระค่าเช่า</Label>
+                                        <Label>ครบกำหนดชำระค่ามัดจำ</Label>
                                     </div>
                                     <div className="form-inline">
                                         <Label style={{margin : "2%"}}>ยอดที่ต้องชำระทั้งสิ้น: </Label>
                                         <Input type="text" value={list.Car.Book_Cost} disabled /> ฿
+                                    </div>
+                                    <div className="form-inline">
+                                        <Label style={{margin : "2%"}}>ค่ามัดจำ: </Label>
+                                        <Input type="text" value={list.Car.Book_Cost * 0.5} disabled /> ฿
                                     </div>
                                     <div className="form-inline">
                                         <Label style={{margin : "2%"}}>วันที่เริ่มขับ: </Label>
@@ -112,13 +120,15 @@ class Book extends Component {
                             <br/>
                             <div className="form-inline">
                                 
-                                   { this.state.hide && <Button color="info">แจ้งการชำระเงิน</Button>}
+                                   { this.state.hide && <Link to={"/paid/"+Cookie.get('email') }><Button color="info">แจ้งการชำระเงินค่ามัดจำ</Button></Link>}
                                    { this.state.hide && <Link to="/"><Button color="danger" style={{marginLeft : "30%"}} onClick={this.cancelBtn}>ยกเลิกการจอง</Button></Link>}
                                 
                             </div>
                         </div>
                     </div>
-                    <div className="col"></div>
+                    <div className="col">
+                        <Rent email={Cookie.get('email')}/>
+                    </div>
                 </div>
                             
             </div>
@@ -128,7 +138,8 @@ class Book extends Component {
 
 
 Book.propTypes = {
-    history: PropTypes.object.isRequired 
+    history: PropTypes.object.isRequired,
+    
 }
 
 

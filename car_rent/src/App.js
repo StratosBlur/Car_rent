@@ -15,6 +15,13 @@ import Book from './components/Cars/book'
 import detail from './components/Cars/car'
 import Employee from './components/employees/'
 import deletebook from './components/employees/deletebook'
+import booked from './components/Cars/booked'
+import paid from './components/Cars/paid'
+import renting from './components/employees/renting' 
+import mgt from './components/mgt/index'
+import staff from './components/mgt/staff'
+import delete_staff from './components/mgt/delete'
+import addstaff from './components/mgt/add'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/navigation.css'
 
@@ -31,6 +38,8 @@ class App extends Component {
           <br />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/addstaff" component={addstaff}/>
+            <Route path="/admin" component={mgt}/>
             <Route path="/cars" component={Cars}/>
             <Route path="/user" component={Users}/>
             <Route path="/reg" component={Register}/>
@@ -38,6 +47,11 @@ class App extends Component {
             <Route path="/emp" component={Employee}/>
             <Route path="/car/:Car_id" component={detail} />
             <Route path="/delete/:email" component={deletebook} />
+            <Route path="/booked/:Car_id/:cost/:startdate/:day" component={booked}/>
+            <Route path="/paid/:email" component={paid}/>
+            <Route path="/renting/:email" component={renting}/>
+            <Route path="/staff/:email" component={staff}/>
+            <Route path="/staff/delete/:email" component={delete_staff} />
             <Route component={NotFoundPage}/>
           </Switch>
         </div>

@@ -38,7 +38,11 @@ router.post('/booking', function(req,res) {
     const email = req.body.email
     const Car_id = req.body.Car_id
     const Cost = req.body.Cost
-    
+    const startdate = req.body.startdate
+    const enddate = req.body.enddate
+
+
+
     CarsModel.findOneAndUpdate({Car_id : Car_id }, {status : "Booking" }, {upsert:true}, function(err, doc){
         if (err){ 
             return res.send(500, { error: err })
@@ -55,6 +59,8 @@ router.post('/booking', function(req,res) {
             doc.Car.Book_Cost = Cost
             doc.Car.Book_createDate = getTodayDate()
             doc.Car.Book_remainingDay = "3"
+            doc.Car.Rent_Start_Date = startdate
+            doc.Car.Rent_Return_Date = enddate
             doc.save()
             console.log("Booking " + doc.Car.Car_id + " to "+ email + " Successful")
            
@@ -82,18 +88,12 @@ router.post('/booking', function(req,res) {
 //ทำการเช่า 
 router.post('/renting' , function (req,res) {
     const email  = req.body.email
-    const s_id = req.body.s_id
-    const Rent_Start_Date = req.body.startdate
-    const Rent_Return_Date = req.body.enddate
+    
     
     CustomerModel.findOne({email : email} , function (err , doc) {
         if(err){
             return res.send('500',{error : err})
         }else{
-            doc.Car.s_id = s_id
-            doc.Car.Rent_Start_Date = Rent_Start_Date
-            doc.Car.Rent_Return_Date = Rent_Return_Date
-            doc.save()
             console.log("Rented " + doc.Car.Car_id + " to "+ email + " Successful")
             CarsModel.findOne({Car_id : doc.Car.Car_id }, function (err,doc) {
                 if(err){
@@ -101,7 +101,7 @@ router.post('/renting' , function (req,res) {
                 }
                 doc.status = "Rented"
                 doc.save()
-                BookingModel.findOne({Car_id : doc.Car.Car_id}, function (err,doc) {
+                BookingModel.findOne({email : email}, function (err,doc) {
                     if(err){
                         return res.send('500',{error : err});
                     }
@@ -136,7 +136,7 @@ router.post('/return', (req, res) => {
         }
         doc.save()
         console.log("remove car from " + email)
-        try {
+        
             CarsModel.findOne({Car_id : Car_id},(err,doc) => {
                 if(err){
                     return res.send('500',{error:err})
@@ -146,9 +146,7 @@ router.post('/return', (req, res) => {
                 console.log("return car "+ Car_id +" from " + email)
             })
  
-        } catch (error) {
-            
-        }
+        
         
 
         BookingModel.deleteMany({email: email},function (err) {
@@ -167,6 +165,17 @@ router.post('/return', (req, res) => {
 router.get('/getbook/:email', (req, res) => {
     const email = req.params.email
     CustomerModel.find({email : email},(err,doc) =>{
+        if(err){
+            return res.send('500',{error : err})
+        }
+        res.json(doc)
+    })
+
+});
+
+router.get('/getbooklist/:email', (req, res) => {
+    const email = req.params.email
+    BookingModel.find({email : email},(err,doc) =>{
         if(err){
             return res.send('500',{error : err})
         }

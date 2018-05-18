@@ -3,10 +3,8 @@ import fetch from 'isomorphic-fetch'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button,Input, FormGroup } from 'reactstrap'
 import { Link  } from 'react-router-dom'
-import Cookies from 'universal-cookie'
-import axios from 'axios'
-import qs from 'qs'
-var Cookie = new Cookies();
+
+
 
 class Car extends Component {
     
@@ -17,27 +15,21 @@ class Car extends Component {
             Cars : [],
             day : 1,
             cost : 0,
-            Car_id : ""
-           
+            Car_id : "",
+            startdate : ""
             
         }
         this.OnReload  = this.OnReload.bind(this)
         this.handleChange =  this.handleChange.bind(this)
-        this.booking = this.booking.bind(this)
+        
     }
+
 
     handleChange(event){
         event.preventDefault()
         const target = event.target
         const value = target.value
         const name = target.name
-
-        if(name === "day"){
-            if(value > 15 || value < 1){
-                alert("จำนวนวันไม่ถูกต้อง")
-            }
-        }
-
         this.setState({
             [name] : value
         })
@@ -45,20 +37,7 @@ class Car extends Component {
 
     }
 
-    booking(costed){
-        const Car_id = this.props.match.params.Car_id
-        const email = Cookie.get('email')
-        const cost = costed
-   
-        axios.post('http://127.0.0.1:1222/api/book/booking',qs.stringify({
-            "email" : String(email),
-            "Car_id" : String(Car_id),
-            "Cost" : String(cost*(50/100))
-        }));
-        
-
-
-    }
+    
 
     OnReload(){
         fetch('http://127.0.0.1:1222/api/Cars/findbyId/'+this.props.match.params.Car_id)
@@ -89,7 +68,7 @@ class Car extends Component {
 
     
     render(){
-        const { Cars   } = this.state
+        const { Cars } = this.state
         
             return (
                 <div>
@@ -105,15 +84,21 @@ class Car extends Component {
                         ราคา : {car.Cost} ฿/Day<br />
                         <FormGroup className="form-inline">
                             <label>จำนวนวันที่เช่า   </label>
-                            <Input type="number" name="day" value={this.state.day} onChange={this.handleChange} min="1" max="15"/>
+                            <Input type="number" name="day" value={this.state.day} onChange={this.handleChange} min="1" max="15"/>  
+                        </FormGroup>
+                        <FormGroup className="form-inline">
+                            <label>วันที่เริ่มขับ</label>
+                            <Input type="date" name="startdate"  onChange={this.handleChange}></Input>
+                        </FormGroup>
+                        <FormGroup className="form-inline">
                             <label> ราคาโดยประมาณ {  this.state.day * car.Cost } ฿</label>
-                            
+                            <label> ค่ามัดจำ { (this.state.day * car.Cost )*0.5} </label>
                         </FormGroup>
                         
                         <br />
                         <br />
                         <br />
-                        <Link to="/" className="btn btn-success" onClick={this.booking(this.state.day * car.Cost)} style={{marginBottom : "-10%" , height : "60px" , width : "50%" , textAlign : "center" , fontSize : "35px"}}>จองเลย!</Link>
+                        <Link to={"/booked/"+car.Car_id+"/"+this.state.day * car.Cost + "/" + this.state.startdate + "/" + this.state.day } className="btn btn-success" style={{marginBottom : "-10%" , height : "60px" , width : "50%" , textAlign : "center" , fontSize : "35px"}}>จองเลย!</Link>
                         </div>
                     ))}
                 </div>

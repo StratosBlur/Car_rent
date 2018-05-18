@@ -141,7 +141,7 @@ class emp_login extends Component {
                                 <th>{list.Car_id}</th>
                                 <th>{list.paid? "✔":"×"}</th>
                                 <th>{list.stat}</th>
-                                <th><Button color="Primary">ดำเนินการให้เช่า</Button><Link to={"/delete/" + list.email }>ไม่อนุมัติ</Link></th>
+                                <th><Link to={"/renting/" + list.email }><Button color="Primary">ดำเนินการให้เช่า</Button></Link><Link to={"/delete/" + list.email }><Button>ไม่อนุมัติ</Button></Link></th>
                             </tr>
                         ))}
                     </tbody>

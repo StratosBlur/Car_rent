@@ -25,6 +25,17 @@ router.get('/',function (req,res) {
     
 })
 
+router.get('/find/:email',function (req,res) {
+    EmployeesModel.find({email : req.params.email},null,null,function(err,docs){
+        if(err){
+            console.log(err)
+            res.send.status(500).send()
+        }
+        res.send(docs);
+    })
+    
+})
+
 router.get('/login/:email/:pass',function(req,res){
     var email =  req.params.email;
     var password = req.params.pass
@@ -34,6 +45,24 @@ router.get('/login/:email/:pass',function(req,res){
         }
          res.json(doc);
     })
+})
+
+router.get('/edit/:email/:password/:idcard',(req,res)=>{
+    var email  = req.params.email
+    var password = req.params.password
+    var idcard = req.params.idcard
+    console.log("edited for "+email)
+    EmployeesModel.update({email : email},{
+        email : email,
+        password : password,
+        idcard: idcard
+    },(err,doc)=> {
+        if(err){
+            return res.send(err)
+        }
+        res.send("update complete")
+    })
+   
 })
 
 router.get('/remove/:email',(req,res) => {
@@ -46,7 +75,33 @@ router.get('/remove/:email',(req,res) => {
     })
 })
 
+router.get('/register/:email/:password/:idcard',function(req,res){
+    var email = req.params.email;
+    var password = req.params.password;
+    var idcard = req.params.idcard
 
+    EmployeesModel.find({email: email},null ,null ,function(err,docs){
+        if(err){
+            console.log(err)
+            res.status(500).send()
+        }
+        if(docs.length != 0){
+            res.json("no");
+        }else{ 
+            EmployeesModel.create({
+                email : email,
+                password : password,
+                idcard : idcard,
+                sid : "S"+Math.floor((Math.random() * 100) + 1)               
+            }, (err,doc)=>{
+                if(err) return res.send(err)
+                res.json(doc)
+            })
+             
+        }
+    })
+    
+})
 
 
 

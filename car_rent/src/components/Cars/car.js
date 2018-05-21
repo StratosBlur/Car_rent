@@ -84,7 +84,7 @@ class Car extends Component {
                         ราคา : {car.Cost} ฿/Day<br />
                         <FormGroup className="form-inline">
                             <label>จำนวนวันที่เช่า   </label>
-                            <Input type="number" name="day" value={this.state.day} onChange={this.handleChange} min="1" max="15"/>  
+                            <Input type="number" name="day" value={this.state.day} onChange={this.handleChange} min="1" max="7"/>  
                         </FormGroup>
                         <FormGroup className="form-inline">
                             <label>วันที่เริ่มขับ</label>

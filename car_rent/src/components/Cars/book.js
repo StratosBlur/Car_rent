@@ -78,11 +78,23 @@ class Book extends Component {
         return ( 
             <div>
                 <div className="row">
+                    <div className="col"></div>
+                    <div className="col">
+                        <div className="jumbotron">
+                            <h1 style={{marginTop : "-15%"}}>การโอนเงิน</h1>
+                            <p>ชื่อบัญชี : บริษัท รถสวยจริง จำกัด</p>
+                            <p>หมายเลขบัญชี : 6969696969</p>
+                            <p>ธนาคาร :ไทยฟันยิ้ม</p>
+                        </div>
+                    </div>
+                    <div className="col"></div>
+                </div>
+                <div className="row">
                     <div className="col">
                     <Link to="/"><Button color="warning" style={{marginTop : "3%" , marginBottom : "3%"}}>กลับ</Button></Link><br/>
                         <div className="jumbotron">
 
-                            <h1 style={{marginTop : "-10%"}}>รถของคุณ</h1>
+                            <h1 style={{marginTop : "-10%"}}>การจอง</h1>
                             
                             {booklist.map(list => (
                                 <div key={list.email} >
@@ -109,7 +121,7 @@ class Book extends Component {
                                     </div>
                                     <div className="form-inline">
                                         <Label style={{margin : "2%"}}>วันที่เริ่มขับ: </Label>
-                                        <Input type="text" value={this.date_best(list.Car.Rent_Start_Date)} disabled/>
+                                        <Input type="text" value={this.date_best(list.Car.Rent_Start_Date)}  disabled/>
                                     </div>
                                     <div className="form-inline">
                                         <Label style={{margin : "2%"}}>วันที่ต้องคืน: </Label>

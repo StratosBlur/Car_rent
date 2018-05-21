@@ -89,6 +89,17 @@ router.post('/add',function(req,res){
     })
 });
 
+router.post('/delete', (req, res) => {
+    var Car_id = req.body.Car_id
+    db.Cars.remove({Car_id : Car_id} , (err) => {
+        if(err){
+            return res.send(err)
+        }
+        res.send("delete complete")
+    })
+});
+
+
 
 
 

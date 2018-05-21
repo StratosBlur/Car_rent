@@ -85,6 +85,70 @@ router.post('/booking', function(req,res) {
    
     
 })
+
+router.post('/take' , function (req,res) {
+    const email  = req.body.email
+    
+    
+    CustomerModel.findOne({email : email} , function (err , doc) {
+        if(err){
+            return res.send('500',{error : err})
+        }else{
+            console.log("take the " + doc.Car.Car_id + " to "+ email + " Successful")
+            CarsModel.findOne({Car_id : doc.Car.Car_id }, function (err,doc) {
+                if(err){
+                    return res.send('500',{error : err});
+                }
+                doc.status = "take the car"
+                doc.save()
+                BookingModel.findOne({email : email}, function (err,doc) {
+                    if(err){
+                        return res.send('500',{error : err});
+                    }
+                    doc.paid = true
+                    doc.stat = "take the car"
+                    doc.save()
+                })
+            })
+            return res.send("save Successful")
+        }
+    })
+
+    
+})
+
+router.post('/maintain' , function (req,res) {
+    const email  = req.body.email
+    
+    
+    CustomerModel.findOne({email : email} , function (err , doc) {
+        if(err){
+            return res.send('500',{error : err})
+        }else{
+            console.log("maintain " + doc.Car.Car_id + " to "+ email + " Successful")
+            CarsModel.findOne({Car_id : doc.Car.Car_id }, function (err,doc) {
+                if(err){
+                    return res.send('500',{error : err});
+                }
+                doc.status = "maintain"
+                doc.save()
+                BookingModel.findOne({email : email}, function (err,doc) {
+                    if(err){
+                        return res.send('500',{error : err});
+                    }
+                    doc.paid = true
+                    doc.stat = "maintain"
+                    doc.save()
+                })
+            })
+            return res.send("save Successful")
+        }
+    })
+
+    
+})
+
+
 //ทำการเช่า 
 router.post('/renting' , function (req,res) {
     const email  = req.body.email

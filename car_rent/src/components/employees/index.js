@@ -14,6 +14,7 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import qs from 'qs'
 import {Link} from 'react-router-dom'
+import Account from '../Account' 
 var Cookie = new Cookies()
 
 class emp_login extends Component {
@@ -141,14 +142,20 @@ class emp_login extends Component {
                                 <th>{list.Car_id}</th>
                                 <th>{list.paid? "✔":"×"}</th>
                                 <th>{list.stat}</th>
-                                <th><Link to={"/renting/" + list.email }><Button color="Primary">ดำเนินการให้เช่า</Button></Link><Link to={"/delete/" + list.email }><Button>ไม่อนุมัติ</Button></Link></th>
+                                <th><Link to={"/take/" + list.email }><Button color="Primary">ส่งรถให้ลูกค้า</Button></Link>
+                                <Link to={"/renting/" + list.email }><Button color="Primary">ดำเนินการให้เช่า</Button></Link>
+                                <Link to={"/delete/" + list.email }><Button>ไม่อนุมัติ/คืนรถ/ปล่อยให้เช่าอีกครั้ง</Button></Link>
+                                <Link to={"/maintain/" + list.email }><Button color="Primary">บำรุงรักษา</Button></Link>
+                                </th>
                             </tr>
                         ))}
                     </tbody>
                     </table>
                           
             </div>
-
+              <br/>
+              <hr/>          
+            <Account />
 
 
         </div>)

@@ -22,6 +22,10 @@ import mgt from './components/mgt/index'
 import staff from './components/mgt/staff'
 import delete_staff from './components/mgt/delete'
 import addstaff from './components/mgt/add'
+import delete_car from './components/mgt/delete_car'
+import reviews from './components/Review/index'
+import take from './components/employees/take'
+import maintain from './components/employees/maintain'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/navigation.css'
 
@@ -46,12 +50,17 @@ class App extends Component {
             <Route path="/book" component={Book} />
             <Route path="/emp" component={Employee}/>
             <Route path="/car/:Car_id" component={detail} />
+            <Route path="/delete_car/:Car_id" component={delete_car}/>
             <Route path="/delete/:email" component={deletebook} />
             <Route path="/booked/:Car_id/:cost/:startdate/:day" component={booked}/>
             <Route path="/paid/:email" component={paid}/>
             <Route path="/renting/:email" component={renting}/>
             <Route path="/staff/:email" component={staff}/>
             <Route path="/staff/delete/:email" component={delete_staff} />
+            <Route path="/reviews/" component={reviews}/>
+            <Route path="/take/:email" component={take}/>
+            <Route path="/maintain/:email" component={maintain}/>
+            
             <Route component={NotFoundPage}/>
           </Switch>
         </div>

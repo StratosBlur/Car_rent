@@ -1,6 +1,6 @@
 import  React ,{ Component } from "react";
-import book from './../employees/index'
 import fetch from 'isomorphic-fetch'
+import Addcar from "../employees/addcar";
 import {Button, 
     Modal, 
     ModalHeader, 
@@ -11,7 +11,7 @@ import {Button,
     Label
 } from 'reactstrap'
 import Cookies from 'universal-cookie'
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 var Cookie = new Cookies()
 class mgt extends Component {
     
@@ -134,10 +134,10 @@ class mgt extends Component {
                     ))}
                     </tbody>
                 </table>
-            
+                
             </div>
             <div className="row">
-                <book />            
+                 <Addcar />       
             </div>
             </div>)
     }

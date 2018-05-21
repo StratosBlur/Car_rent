@@ -60,6 +60,9 @@ export default class Header extends Component {
                         </NavLink>
                         </NavItem>
                         <NavItem>
+                        <Link to="/reviews"><NavLink>Reviews</NavLink></Link>
+                        </NavItem>
+                        <NavItem>
                         <Link to="/book"><NavLink>Manage Booking</NavLink></Link>
                         </NavItem>
                         <NavItem onClick={this.logoutSubmit}>

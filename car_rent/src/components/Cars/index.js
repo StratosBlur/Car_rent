@@ -133,6 +133,7 @@ class Cars extends Component {
                                 <th>รุ่น</th>
                                 <th>Spec</th>
                                 <th>รูปภาพ</th>
+                                <th>ราคา</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -143,10 +144,11 @@ class Cars extends Component {
                                 <td>{car.Car_name}</td>
                                 <td> จำนวนที่นั่ง {car.Seats} จำนวนประตู {car.Doors} ประเภทเกียร์ {car.Gear}</td>
                                  <td>
-                                    <img src={car.Img.pic_one} alt="..."/>
+                                    <img style={{height : 300 , width :500}} src={car.Img.pic_one} alt="..."/>
                                 </td>
+                                <td>{car.Cost}</td>
                                 <td>
-                                   {  (this.state.btnR && <Link to={"/car/"+ car.Car_id}><Button color="info">ราละเอียด</Button></Link>)}
+                                   {  (this.state.btnR && <Link to={"/car/"+ car.Car_id}><Button color="info">รายละเอียด</Button></Link>)}
                                 </td>
                                 </tr>
                            ))}

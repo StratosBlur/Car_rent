@@ -26,8 +26,10 @@ import delete_car from './components/mgt/delete_car'
 import reviews from './components/Review/index'
 import take from './components/employees/take'
 import maintain from './components/employees/maintain'
+import edit from './components/employees/edit'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/navigation.css'
+
 
 
  
@@ -36,7 +38,7 @@ class App extends Component {
   
  render() {
     return (
-      <div>
+      <div style={{backgroundColor : "#e6ffff"}}>
       <Header/>
         <div className="App container">
           <br />
@@ -60,7 +62,7 @@ class App extends Component {
             <Route path="/reviews/" component={reviews}/>
             <Route path="/take/:email" component={take}/>
             <Route path="/maintain/:email" component={maintain}/>
-            
+            <Route path="/edit_car/:Car_id" component={edit}/>
             <Route component={NotFoundPage}/>
           </Switch>
         </div>

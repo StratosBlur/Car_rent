@@ -30,7 +30,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /node_modules
-/car_rent/public
+
 /car_rent/node_modules
 /car_rent/build
 

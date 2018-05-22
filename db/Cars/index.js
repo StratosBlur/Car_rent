@@ -55,6 +55,19 @@ router.get('/findbyId/:id',function(req,res){
 })
 
 
+router.get('/edit/:Car_id/:Cost',(req,res)=>{
+    var Cost = req.params.Cost
+    var Car_id = req.params.Car_id
+    CarsModel.update({Car_id : Car_id},{
+        Cost : Cost
+    },(err,doc)=> {
+        if(err){
+            return res.send(err)
+        }
+        res.send("update complete")
+    })
+   
+})
 
 router.get('/find/:Seats/:Cost',function(req,res){
     var Seats = req.params.Seats

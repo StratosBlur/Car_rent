@@ -69,6 +69,7 @@ export default class Account extends Component {
     render(){
         const {data} = this.state
         return (<div>
+            
             <h1>บันทึกรายรับรายจ่าย</h1>
             <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>รายละเอียดการรับ-จ่าย</ModalHeader>

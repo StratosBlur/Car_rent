@@ -58,6 +58,17 @@ router.get('/login/:email/:pass',function(req,res){
     })
 })
 
+router.get('/loginadmin/:email/:pass',function(req,res){
+    var email =  req.params.email;
+    var password = req.params.pass
+    EmployeesModel.find({email : email , password : password, level : "99"},null,null,function (err,doc) {
+        if(err){
+            console.log(err)
+        }
+         res.json(doc);
+    })
+})
+
 router.get('/edit/:email/:password/:idcard',(req,res)=>{
     var email  = req.params.email
     var password = req.params.password

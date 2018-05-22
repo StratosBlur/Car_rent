@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {Button, FormGroup, Label, Input} from 'reactstrap'
 import Cookies from 'universal-cookie'
 import {Link } from 'react-router-dom'
+
 var Cookie = new Cookies();
 
 class Cars extends Component {
@@ -142,7 +143,7 @@ class Cars extends Component {
                                <tr key={car.Car_id}>
                                 <th>{car.Car_id}</th>
                                 <td>{car.Car_name}</td>
-                                <td> จำนวนที่นั่ง {car.Seats} จำนวนประตู {car.Doors} ประเภทเกียร์ {car.Gear}</td>
+                                <td> จำนวนที่นั่ง : {car.Seats} <br />จำนวนประตู : {car.Doors} <br /> ประเภทเกียร์ : {car.Gear}</td>
                                  <td>
                                     <img style={{height : 300 , width :500}} src={car.Img.pic_one} alt="..."/>
                                 </td>

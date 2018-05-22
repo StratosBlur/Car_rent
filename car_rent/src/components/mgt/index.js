@@ -39,7 +39,7 @@ class mgt extends Component {
 
     login(event){
         const { email , password } = this.state
-        var url = "http://127.0.0.1:1222/api/emp/login/"+email+"/"+password
+        var url = "http://127.0.0.1:1222/api/emp/loginadmin/"+email+"/"+password
         fetch(url)
             .then(Response => Response.json())
             .then((data) =>{

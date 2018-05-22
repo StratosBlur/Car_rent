@@ -161,7 +161,7 @@ export default class Addcar extends Component {
                                     <Link to={"/delete_car/" + car.Car_id}>
                                         <Button color="danger">ลบ</Button>
                                     </Link>
-                                    <Button color="warining">แก้ไข</Button>
+                                   <Link to={"/edit_car/"+ car.Car_id }><Button color="warining" >แก้ไข</Button></Link>
                                 </td>
                             </tr>
                         ))}
